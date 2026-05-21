@@ -6,6 +6,10 @@ using SistemaPortuario.Security;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Servicio para tareas administrativas y eventos de calendario.
+/// Aplica filtros de empresa y mapea entidades a DTOs de uso del frontend.
+/// </summary>
 public class AdministracionService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IAdministracionService
 {
     public async Task<List<EstadoTareaResponseDto>> GetEstadosTareaAsync(CancellationToken cancellationToken = default) =>

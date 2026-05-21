@@ -2,6 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPortuario.DTOs;
 
+// DTOs de autenticacion y administracion inicial de usuarios.
+// Las anotaciones validan el payload antes de llegar a los services.
 public record LoginRequestDto(
     [Required, EmailAddress, StringLength(180)]
     string Correo,

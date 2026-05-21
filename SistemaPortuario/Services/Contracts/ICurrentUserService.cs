@@ -1,5 +1,8 @@
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Contrato para acceder al usuario autenticado desde los services.
+/// </summary>
 public interface ICurrentUserService
 {
     int? IdUsuario { get; }

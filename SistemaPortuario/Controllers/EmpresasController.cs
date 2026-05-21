@@ -9,6 +9,9 @@ namespace SistemaPortuario.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
+/// <summary>
+/// Endpoints para alta, consulta y mantenimiento de empresas.
+/// </summary>
 public class EmpresasController(IEmpresaService service) : ControllerBase
 {
     [HttpGet]

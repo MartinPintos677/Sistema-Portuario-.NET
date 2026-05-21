@@ -2,6 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPortuario.DTOs;
 
+/// <summary>
+/// Parametros de paginacion recibidos por listados.
+/// Los metodos seguros evitan paginas invalidas o tamanos excesivos.
+/// </summary>
 public class PaginationRequestDto
 {
     [Range(1, int.MaxValue)]
@@ -15,6 +19,9 @@ public class PaginationRequestDto
     public int GetSafePageSize() => Math.Clamp(PageSize, 1, 100);
 }
 
+/// <summary>
+/// Formato comun de respuesta paginada consumido por las tablas del frontend.
+/// </summary>
 public record PagedResponseDto<T>(
     IReadOnlyList<T> Items,
     int PageNumber,

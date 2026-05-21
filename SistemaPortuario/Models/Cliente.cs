@@ -1,5 +1,8 @@
 namespace SistemaPortuario.Models;
 
+/// <summary>
+/// Cliente atendido dentro del alcance de una empresa.
+/// </summary>
 public class Cliente
 {
     public int IdCliente { get; set; }

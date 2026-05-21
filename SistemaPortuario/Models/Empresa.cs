@@ -1,5 +1,9 @@
 namespace SistemaPortuario.Models;
 
+/// <summary>
+/// Empresa operadora o vinculada al sistema.
+/// Actua como limite de datos para la mayoria de los roles.
+/// </summary>
 public class Empresa
 {
     public int IdEmpresa { get; set; }

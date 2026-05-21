@@ -2,6 +2,9 @@ using System.Security.Claims;
 
 namespace SistemaPortuario.Security;
 
+/// <summary>
+/// Extensiones para leer datos frecuentes del ClaimsPrincipal autenticado.
+/// </summary>
 public static class ClaimsPrincipalExtensions
 {
     public static int GetUsuarioId(this ClaimsPrincipal user)

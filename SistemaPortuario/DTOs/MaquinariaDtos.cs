@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPortuario.DTOs;
 
+// DTOs de maquinaria, tipos y registros de horas.
 public record TipoMaquinariaResponseDto(
     int IdTipoMaquinaria,
     string Nombre);

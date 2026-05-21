@@ -5,6 +5,10 @@ using SistemaPortuario.Models;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Servicio para usuarios y roles.
+/// Gestiona altas, ediciones, cambios de password y activacion de cuentas.
+/// </summary>
 public class UsuarioService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IUsuarioService
 {
     public async Task<List<RolResponseDto>> GetRolesAsync(CancellationToken cancellationToken = default) =>

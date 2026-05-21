@@ -2,6 +2,9 @@ using SistemaPortuario.DTOs;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Contrato de operaciones de ordenes de servicio.
+/// </summary>
 public interface IOrdenServicioService
 {
     Task<List<EstadoOrdenServicioResponseDto>> GetEstadosAsync(CancellationToken cancellationToken = default);

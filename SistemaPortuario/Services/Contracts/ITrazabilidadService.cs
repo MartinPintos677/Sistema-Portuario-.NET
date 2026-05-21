@@ -2,6 +2,9 @@ using SistemaPortuario.DTOs;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Contrato de consulta de auditoria y trazabilidad.
+/// </summary>
 public interface ITrazabilidadService
 {
     Task<PagedResponseDto<TrazabilidadResponseDto>> GetAllAsync(PaginationRequestDto pagination, CancellationToken cancellationToken = default);

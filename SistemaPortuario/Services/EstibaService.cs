@@ -5,6 +5,10 @@ using SistemaPortuario.Models;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Servicio para operativa de estiba.
+/// Agrupa personal, cuadrillas, citaciones, asistencia y liquidaciones.
+/// </summary>
 public class EstibaService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IEstibaService
 {
     public async Task<PagedResponseDto<PersonalEstibaResponseDto>> GetPersonalAsync(PaginationRequestDto pagination, CancellationToken cancellationToken = default) =>

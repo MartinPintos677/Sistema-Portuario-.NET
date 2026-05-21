@@ -9,6 +9,9 @@ namespace SistemaPortuario.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
+/// <summary>
+/// Endpoints para usuarios, roles y cambio de estado de cuentas.
+/// </summary>
 public class UsuariosController(IUsuarioService service) : ControllerBase
 {
     [HttpGet("roles")]

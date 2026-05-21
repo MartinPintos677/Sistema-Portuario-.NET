@@ -5,6 +5,10 @@ using SistemaPortuario.Models;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Servicio para clientes.
+/// Controla que las operaciones queden dentro del alcance de empresa permitido.
+/// </summary>
 public class ClienteService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IClienteService
 {
     public async Task<PagedResponseDto<ClienteResponseDto>> GetAllAsync(PaginationRequestDto pagination, CancellationToken cancellationToken = default) =>

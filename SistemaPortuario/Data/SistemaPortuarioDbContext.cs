@@ -7,6 +7,10 @@ using SistemaPortuario.Models;
 
 namespace SistemaPortuario.Data;
 
+/// <summary>
+/// DbContext principal del sistema portuario.
+/// Expone las tablas del dominio y centraliza la auditoria de cambios.
+/// </summary>
 public class SistemaPortuarioDbContext(
     DbContextOptions<SistemaPortuarioDbContext> options,
     IHttpContextAccessor httpContextAccessor) : DbContext(options)
@@ -23,6 +27,7 @@ public class SistemaPortuarioDbContext(
 
     private bool _savingAudit;
 
+    // DbSets del dominio. Se organizan por modulo funcional del sistema.
     public DbSet<Empresa> Empresas => Set<Empresa>();
     public DbSet<Rol> Roles => Set<Rol>();
     public DbSet<Usuario> Usuarios => Set<Usuario>();
@@ -57,6 +62,9 @@ public class SistemaPortuarioDbContext(
         modelBuilder.ConfigureSistemaPortuarioModel();
     }
 
+    /// <summary>
+    /// Guarda cambios y, si existe usuario autenticado, registra trazabilidad.
+    /// </summary>
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         if (_savingAudit)
@@ -104,6 +112,7 @@ public class SistemaPortuarioDbContext(
             .ToList();
     }
 
+    // La auditoria toma el usuario desde el claim del JWT emitido por AuthService.
     private int? GetCurrentUserId()
     {
         var value = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -118,6 +127,9 @@ public class SistemaPortuarioDbContext(
             _ => false
         };
 
+    /// <summary>
+    /// Representa un cambio pendiente antes de persistirlo como Trazabilidad.
+    /// </summary>
     private sealed class AuditEntry
     {
         private readonly EntityEntry _entry;

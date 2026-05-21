@@ -4,6 +4,10 @@ using SistemaPortuario.DTOs;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Servicio de consulta de trazabilidad.
+/// Lee los registros generados automaticamente por el DbContext.
+/// </summary>
 public class TrazabilidadService(SistemaPortuarioDbContext context) : ITrazabilidadService
 {
     private static readonly string[] HiddenEntities = ["RefreshToken"];

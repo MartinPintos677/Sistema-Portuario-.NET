@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPortuario.DTOs;
 
+// DTOs de estiba: personal, cuadrillas, citaciones, detalles y liquidaciones.
 public record PersonalEstibaResponseDto(
     int IdPersonalEstiba,
     int IdEmpresa,

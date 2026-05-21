@@ -3,8 +3,15 @@ using SistemaPortuario.Models;
 
 namespace SistemaPortuario.Data.Configurations;
 
+/// <summary>
+/// Configuracion central de Entity Framework Core para el modelo relacional.
+/// Mantiene claves, indices, relaciones, restricciones y catalogos fuera del DbContext.
+/// </summary>
 public static class SistemaPortuarioModelBuilderExtensions
 {
+    /// <summary>
+    /// Aplica toda la configuracion del dominio en un unico punto de entrada.
+    /// </summary>
     public static void ConfigureSistemaPortuarioModel(this ModelBuilder modelBuilder)
     {
         ConfigureEmpresa(modelBuilder);

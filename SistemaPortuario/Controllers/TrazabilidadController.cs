@@ -9,6 +9,9 @@ namespace SistemaPortuario.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize(Roles = AppRoles.Administrador)]
+/// <summary>
+/// Endpoints de auditoria para revisar cambios registrados por el DbContext.
+/// </summary>
 public class TrazabilidadController(ITrazabilidadService service) : ControllerBase
 {
     [HttpGet]

@@ -12,12 +12,12 @@ using SistemaPortuario.Services;
 var builder = WebApplication.CreateBuilder(args);
 const string CorsPolicy = "SistemaPortuarioFrontend";
 
+// Configuracion base de logging para desarrollo y diagnostico en despliegues.
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 
-// Add services to the container.
-
+// La cadena de conexion se exige al iniciar para fallar rapido si falta configuracion.
 var connectionString = builder.Configuration.GetConnectionString("SistemaPortuarioConnection");
 if (string.IsNullOrWhiteSpace(connectionString))
 {
@@ -29,6 +29,7 @@ builder.Services.AddDbContext<SistemaPortuarioDbContext>(options =>
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
 
+// Registro de servicios de negocio. Los controllers dependen de interfaces.
 builder.Services.AddScoped<IEmpresaService, EmpresaService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
@@ -50,6 +51,7 @@ if (string.IsNullOrWhiteSpace(jwtOptions.SecretKey))
     throw new InvalidOperationException("Falta configurar Jwt:SecretKey. En produccion usa la variable Jwt__SecretKey.");
 }
 
+// Autenticacion JWT stateless para proteger endpoints por usuario, empresa y rol.
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -76,6 +78,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(CorsPolicy, policy =>
     {
+        // Origenes locales usados por Vite durante desarrollo.
         policy
             .WithOrigins(
                 "http://localhost:5173",
@@ -95,6 +98,7 @@ builder.Services.AddProblemDetails(options =>
 {
     options.CustomizeProblemDetails = context =>
     {
+        // El traceId permite relacionar errores del frontend con logs del backend.
         context.ProblemDetails.Extensions["traceId"] = context.HttpContext.TraceIdentifier;
     };
 });
@@ -132,6 +136,7 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+// Manejador global de errores: convierte excepciones conocidas en ProblemDetails.
 app.UseExceptionHandler(exceptionHandlerApp =>
 {
     exceptionHandlerApp.Run(async context =>
@@ -169,7 +174,6 @@ app.UseExceptionHandler(exceptionHandlerApp =>
     });
 });
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

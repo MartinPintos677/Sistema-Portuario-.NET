@@ -1,5 +1,8 @@
 namespace SistemaPortuario.Models;
 
+/// <summary>
+/// Catalogo de estados para tareas administrativas.
+/// </summary>
 public class EstadoTarea
 {
     public int IdEstadoTarea { get; set; }

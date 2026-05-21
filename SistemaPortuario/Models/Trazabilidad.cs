@@ -1,5 +1,8 @@
 namespace SistemaPortuario.Models;
 
+/// <summary>
+/// Registro de auditoria generado automaticamente al guardar cambios.
+/// </summary>
 public class Trazabilidad
 {
     public long IdTrazabilidad { get; set; }

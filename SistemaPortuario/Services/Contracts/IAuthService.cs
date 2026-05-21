@@ -2,6 +2,9 @@ using SistemaPortuario.DTOs;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Contrato de autenticacion y ciclo de sesion.
+/// </summary>
 public interface IAuthService
 {
     Task<LoginResponseDto?> LoginAsync(LoginRequestDto dto, CancellationToken cancellationToken = default);

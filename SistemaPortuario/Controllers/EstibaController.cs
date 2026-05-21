@@ -9,6 +9,9 @@ namespace SistemaPortuario.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize(Roles = AppRoles.Estiba)]
+/// <summary>
+/// Endpoints para operativa de estiba: personal, cuadrillas, citaciones y liquidaciones.
+/// </summary>
 public class EstibaController(IEstibaService service) : ControllerBase
 {
     [HttpGet("personal")]

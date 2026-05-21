@@ -1,5 +1,9 @@
 namespace SistemaPortuario.Options;
 
+/// <summary>
+/// Opciones de configuracion usadas para emitir y validar tokens JWT.
+/// Se cargan desde la seccion Jwt de appsettings o variables de entorno.
+/// </summary>
 public class JwtOptions
 {
     public string Issuer { get; set; } = string.Empty;

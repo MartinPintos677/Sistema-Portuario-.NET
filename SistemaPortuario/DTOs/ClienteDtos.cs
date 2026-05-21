@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPortuario.DTOs;
 
+// DTOs de clientes vinculados a una empresa del sistema.
 public record ClienteResponseDto(
     int IdCliente,
     int IdEmpresa,

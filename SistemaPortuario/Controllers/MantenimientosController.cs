@@ -9,6 +9,9 @@ namespace SistemaPortuario.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize(Roles = AppRoles.Taller)]
+/// <summary>
+/// Endpoints para mantenimiento de maquinaria y sus catalogos.
+/// </summary>
 public class MantenimientosController(IMantenimientoService service) : ControllerBase
 {
     [HttpGet("tipos")]

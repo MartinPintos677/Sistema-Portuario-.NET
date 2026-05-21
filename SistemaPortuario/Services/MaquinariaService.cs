@@ -6,6 +6,10 @@ using SistemaPortuario.Security;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Servicio para maquinaria y registros de horas.
+/// Mantiene el inventario operativo y la carga de horas trabajadas.
+/// </summary>
 public class MaquinariaService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IMaquinariaService
 {
     private const decimal MaintenanceHourStep = 200;
@@ -29,6 +33,23 @@ public class MaquinariaService(SistemaPortuarioDbContext context, ICurrentUserSe
 
     public async Task<MaquinariaResponseDto?> GetByIdAsync(int id, CancellationToken cancellationToken = default) =>
         (await MaquinariasConRelaciones().FirstOrDefaultAsync(m => m.IdMaquinaria == id, cancellationToken))?.ToDto();
+
+    public async Task<PagedResponseDto<RegistroHorasMaquinariaResponseDto>> GetHistorialHorasAsync(
+        int idMaquinaria,
+        PaginationRequestDto pagination,
+        CancellationToken cancellationToken = default) =>
+        await context.RegistrosHorasMaquinaria
+            .AsNoTracking()
+            .Include(r => r.Maquinaria)
+            .Where(r => r.IdMaquinaria == idMaquinaria)
+            .Where(r =>
+                currentUser.IsAdministrador ||
+                !currentUser.IdEmpresa.HasValue ||
+                r.Maquinaria.IdEmpresa == currentUser.IdEmpresa.Value)
+            .OrderByDescending(r => r.Fecha)
+            .ThenByDescending(r => r.IdRegistroHoras)
+            .Select(r => r.ToDto())
+            .ToPagedResponseAsync(pagination, cancellationToken);
 
     public async Task<MaquinariaResponseDto> CreateAsync(MaquinariaCreateDto dto, CancellationToken cancellationToken = default)
     {

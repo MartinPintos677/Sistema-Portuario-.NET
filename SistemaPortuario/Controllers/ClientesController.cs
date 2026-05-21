@@ -9,6 +9,9 @@ namespace SistemaPortuario.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize(Roles = AppRoles.GestionOperativa)]
+/// <summary>
+/// Endpoints para clientes vinculados a empresas del sistema.
+/// </summary>
 public class ClientesController(IClienteService service) : ControllerBase
 {
     [HttpGet]

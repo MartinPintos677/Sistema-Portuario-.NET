@@ -7,6 +7,9 @@ namespace SistemaPortuario.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+/// <summary>
+/// Endpoints de autenticacion, refresh token y bootstrap del primer administrador.
+/// </summary>
 public class AuthController(IAuthService authService) : ControllerBase
 {
     [HttpPost("login")]

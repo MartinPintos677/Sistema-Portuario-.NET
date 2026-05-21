@@ -6,6 +6,11 @@ using SistemaPortuario.Security;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Servicio de ordenes de servicio.
+/// Concentra reglas de creacion, edicion, cierre y facturacion de ordenes,
+/// respetando alcance por empresa y rol del usuario actual.
+/// </summary>
 public class OrdenServicioService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IOrdenServicioService
 {
     public async Task<List<EstadoOrdenServicioResponseDto>> GetEstadosAsync(CancellationToken cancellationToken = default) =>
@@ -148,6 +153,7 @@ public class OrdenServicioService(SistemaPortuarioDbContext context, ICurrentUse
 
     private IQueryable<OrdenServicio> OrdenesPermitidas()
     {
+        // Operario solo ve sus ordenes; otros roles quedan acotados a su empresa.
         var query = OrdenesConRelaciones();
         if (currentUser.Rol == AppRoles.Operario && currentUser.IdUsuario.HasValue)
         {
@@ -161,6 +167,7 @@ public class OrdenServicioService(SistemaPortuarioDbContext context, ICurrentUse
 
     private IQueryable<OrdenServicio> OrdenesEditables()
     {
+        // Version trackeada de la consulta porque se usa para modificar entidades.
         var query = context.OrdenesServicio.AsQueryable();
         if (currentUser.Rol == AppRoles.Operario && currentUser.IdUsuario.HasValue)
         {
@@ -181,6 +188,7 @@ public class OrdenServicioService(SistemaPortuarioDbContext context, ICurrentUse
         int? idMaquinariaFacturada,
         CancellationToken cancellationToken)
     {
+        // Valida que las referencias de la orden pertenezcan a la misma empresa.
         if (!currentUser.CanAccessEmpresa(idEmpresa))
         {
             throw new UnauthorizedAccessException("No tienes permisos para operar con esa empresa.");

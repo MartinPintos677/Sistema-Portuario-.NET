@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPortuario.DTOs;
 
+// DTOs de notificaciones y cambios de estado.
 public record NotificacionResponseDto(
     int IdNotificacion,
     int? IdUsuario,

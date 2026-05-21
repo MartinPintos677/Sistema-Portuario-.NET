@@ -3,6 +3,10 @@ using SistemaPortuario.Security;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Adaptador del usuario autenticado.
+/// Lee claims del JWT y ofrece helpers de alcance por empresa para los services.
+/// </summary>
 public class CurrentUserService(IHttpContextAccessor httpContextAccessor) : ICurrentUserService
 {
     private ClaimsPrincipal? User => httpContextAccessor.HttpContext?.User;

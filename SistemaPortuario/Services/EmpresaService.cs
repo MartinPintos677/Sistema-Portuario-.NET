@@ -5,6 +5,10 @@ using SistemaPortuario.Models;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Servicio para empresas.
+/// Los administradores pueden operar sobre todas; otros roles quedan limitados a la propia.
+/// </summary>
 public class EmpresaService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IEmpresaService
 {
     public async Task<PagedResponseDto<EmpresaResponseDto>> GetAllAsync(PaginationRequestDto pagination, CancellationToken cancellationToken = default) =>

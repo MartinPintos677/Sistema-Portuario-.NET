@@ -9,6 +9,9 @@ namespace SistemaPortuario.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
+/// <summary>
+/// Endpoints para maquinaria, tipos y registro de horas trabajadas.
+/// </summary>
 public class MaquinariasController(IMaquinariaService service) : ControllerBase
 {
     [HttpGet("tipos")]
@@ -33,6 +36,14 @@ public class MaquinariasController(IMaquinariaService service) : ControllerBase
         var result = await service.GetByIdAsync(id, cancellationToken);
         return result is null ? NotFound() : Ok(result);
     }
+
+    [HttpGet("{id:int}/registros-horas")]
+    [Authorize(Roles = AppRoles.GestionOperativa)]
+    public async Task<ActionResult<PagedResponseDto<RegistroHorasMaquinariaResponseDto>>> GetHistorialHoras(
+        int id,
+        [FromQuery] PaginationRequestDto pagination,
+        CancellationToken cancellationToken) =>
+        Ok(await service.GetHistorialHorasAsync(id, pagination, cancellationToken));
 
     [HttpPost]
     [Authorize(Roles = $"{AppRoles.Administrador},{AppRoles.Encargado}")]

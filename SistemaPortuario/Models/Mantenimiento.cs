@@ -1,5 +1,8 @@
 namespace SistemaPortuario.Models;
 
+/// <summary>
+/// Catalogo de tipos de mantenimiento aplicables a maquinaria.
+/// </summary>
 public class TipoMantenimiento
 {
     public int IdTipoMantenimiento { get; set; }

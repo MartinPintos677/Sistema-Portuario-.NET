@@ -1,5 +1,8 @@
 namespace SistemaPortuario.Models;
 
+/// <summary>
+/// Catalogo de estados posibles para una orden de servicio.
+/// </summary>
 public class EstadoOrdenServicio
 {
     public int IdEstadoOrden { get; set; }
@@ -9,6 +12,9 @@ public class EstadoOrdenServicio
     public ICollection<OrdenServicio> OrdenesServicio { get; set; } = new List<OrdenServicio>();
 }
 
+/// <summary>
+/// Trabajo operativo solicitado para cliente, operario y maquinaria asignada.
+/// </summary>
 public class OrdenServicio
 {
     public int IdOrdenServicio { get; set; }

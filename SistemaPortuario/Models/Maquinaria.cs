@@ -1,5 +1,8 @@
 namespace SistemaPortuario.Models;
 
+/// <summary>
+/// Catalogo de tipos de maquinaria.
+/// </summary>
 public class TipoMaquinaria
 {
     public int IdTipoMaquinaria { get; set; }
@@ -8,6 +11,9 @@ public class TipoMaquinaria
     public ICollection<Maquinaria> Maquinarias { get; set; } = new List<Maquinaria>();
 }
 
+/// <summary>
+/// Maquinaria disponible para asignar a ordenes y registrar horas.
+/// </summary>
 public class Maquinaria
 {
     public int IdMaquinaria { get; set; }

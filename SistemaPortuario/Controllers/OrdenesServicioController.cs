@@ -9,6 +9,9 @@ namespace SistemaPortuario.Controllers;
 [ApiController]
 [Route("api/ordenes-servicio")]
 [Authorize(Roles = AppRoles.OrdenesLectura)]
+/// <summary>
+/// Endpoints para ordenes de servicio: consulta, asignacion, cierre y facturacion.
+/// </summary>
 public class OrdenesServicioController(IOrdenServicioService service) : ControllerBase
 {
     [HttpGet("estados")]

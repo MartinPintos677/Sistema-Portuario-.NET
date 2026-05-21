@@ -1,5 +1,8 @@
 namespace SistemaPortuario.Models;
 
+/// <summary>
+/// Personal operativo utilizado en citaciones de estiba.
+/// </summary>
 public class PersonalEstiba
 {
     public int IdPersonalEstiba { get; set; }

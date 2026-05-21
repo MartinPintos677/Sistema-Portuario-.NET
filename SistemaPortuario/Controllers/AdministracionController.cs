@@ -9,6 +9,9 @@ namespace SistemaPortuario.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize(Roles = AppRoles.GestionOperativa)]
+/// <summary>
+/// Endpoints para tareas administrativas y eventos de calendario.
+/// </summary>
 public class AdministracionController(IAdministracionService service) : ControllerBase
 {
     [HttpGet("estados-tarea")]

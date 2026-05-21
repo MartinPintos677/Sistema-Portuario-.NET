@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPortuario.DTOs;
 
+// DTOs de empresas, usuarios y roles usados por administracion y permisos.
 public record EmpresaResponseDto(
     int IdEmpresa,
     string Nombre,

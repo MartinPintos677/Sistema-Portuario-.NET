@@ -9,6 +9,9 @@ namespace SistemaPortuario.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
+/// <summary>
+/// Endpoints para notificaciones y actualizacion de estado.
+/// </summary>
 public class NotificacionesController(INotificacionService service) : ControllerBase
 {
     [HttpGet]

@@ -6,6 +6,10 @@ using SistemaPortuario.Security;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Servicio para notificaciones.
+/// Permite crear mensajes y actualizar su estado operativo.
+/// </summary>
 public class NotificacionService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : INotificacionService
 {
     public async Task<PagedResponseDto<NotificacionResponseDto>> GetAllAsync(PaginationRequestDto pagination, CancellationToken cancellationToken = default) =>

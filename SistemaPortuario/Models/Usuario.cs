@@ -1,5 +1,8 @@
 namespace SistemaPortuario.Models;
 
+/// <summary>
+/// Usuario del sistema con rol, empresa y relaciones operativas.
+/// </summary>
 public class Usuario
 {
     public int IdUsuario { get; set; }

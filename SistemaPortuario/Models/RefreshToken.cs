@@ -1,5 +1,8 @@
 namespace SistemaPortuario.Models;
 
+/// <summary>
+/// Refresh token persistido como hash para renovar sesiones de forma segura.
+/// </summary>
 public class RefreshToken
 {
     public int IdRefreshToken { get; set; }

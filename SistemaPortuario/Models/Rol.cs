@@ -1,5 +1,8 @@
 namespace SistemaPortuario.Models;
 
+/// <summary>
+/// Rol de autorizacion asignado a usuarios.
+/// </summary>
 public class Rol
 {
     public int IdRol { get; set; }

@@ -1,5 +1,8 @@
 namespace SistemaPortuario.Models;
 
+/// <summary>
+/// Mensaje generado por el sistema para usuario, orden o citacion.
+/// </summary>
 public class Notificacion
 {
     public int IdNotificacion { get; set; }

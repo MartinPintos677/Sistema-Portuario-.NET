@@ -5,6 +5,10 @@ using SistemaPortuario.Models;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Servicio para mantenimiento de maquinaria.
+/// Gestiona catalogos, ordenes de mantenimiento y cierre de tareas tecnicas.
+/// </summary>
 public class MantenimientoService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IMantenimientoService
 {
     public async Task<List<TipoMantenimientoResponseDto>> GetTiposAsync(CancellationToken cancellationToken = default) =>

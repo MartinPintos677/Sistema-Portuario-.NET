@@ -1,5 +1,9 @@
 namespace SistemaPortuario.Security;
 
+/// <summary>
+/// Roles y grupos de roles usados por Authorize.
+/// Centralizar estos valores evita strings duplicados en controllers.
+/// </summary>
 public static class AppRoles
 {
     public const string Administrador = "Administrador";

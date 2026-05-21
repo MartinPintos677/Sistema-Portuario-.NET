@@ -3,6 +3,10 @@ using SistemaPortuario.Models;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Mapeos entre entidades EF Core y DTOs de respuesta.
+/// Mantiene las proyecciones simples fuera de controllers y services.
+/// </summary>
 public static class MappingExtensions
 {
     public static EmpresaResponseDto ToDto(this Empresa entity) =>

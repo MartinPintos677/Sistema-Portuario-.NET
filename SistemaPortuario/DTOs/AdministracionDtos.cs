@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPortuario.DTOs;
 
+// DTOs de tareas administrativas y eventos de calendario.
 public record EstadoTareaResponseDto(
     int IdEstadoTarea,
     string Nombre);

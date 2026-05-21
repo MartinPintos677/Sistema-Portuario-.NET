@@ -13,6 +13,11 @@ using SistemaPortuario.Security;
 
 namespace SistemaPortuario.Services;
 
+/// <summary>
+/// Servicio de autenticacion.
+/// Valida credenciales, emite JWT, administra refresh tokens y permite crear
+/// el primer administrador cuando la base esta vacia.
+/// </summary>
 public class AuthService(SistemaPortuarioDbContext context, IOptions<JwtOptions> jwtOptions) : IAuthService
 {
     private readonly JwtOptions _jwtOptions = jwtOptions.Value;
@@ -31,6 +36,7 @@ public class AuthService(SistemaPortuarioDbContext context, IOptions<JwtOptions>
         return await CrearLoginResponseAsync(usuario, cancellationToken: cancellationToken);
     }
 
+    // Flujo bootstrap: solo se permite si aun no existe ningun usuario.
     public async Task<LoginResponseDto?> CrearPrimerAdministradorAsync(PrimerAdministradorRequestDto dto, CancellationToken cancellationToken = default)
     {
         if (await context.Usuarios.AnyAsync(cancellationToken))
@@ -73,6 +79,7 @@ public class AuthService(SistemaPortuarioDbContext context, IOptions<JwtOptions>
 
     public async Task<LoginResponseDto?> RefreshAsync(RefreshTokenRequestDto dto, CancellationToken cancellationToken = default)
     {
+        // Los refresh tokens se guardan hasheados para no persistir secretos en texto plano.
         var tokenHash = HashToken(dto.RefreshToken);
         var refreshToken = await context.RefreshTokens
             .Include(t => t.Usuario)
@@ -121,6 +128,7 @@ public class AuthService(SistemaPortuarioDbContext context, IOptions<JwtOptions>
         string? refreshToken = null,
         CancellationToken cancellationToken = default)
     {
+        // Cada login/refresh genera access token corto y refresh token rotativo.
         var expira = DateTime.UtcNow.AddMinutes(_jwtOptions.ExpirationMinutes);
         var token = CrearToken(usuario, expira);
         refreshToken ??= GenerateRefreshToken();
@@ -138,6 +146,7 @@ public class AuthService(SistemaPortuarioDbContext context, IOptions<JwtOptions>
 
     private string CrearToken(Usuario usuario, DateTime expira)
     {
+        // Claims minimos que usan autorizacion, filtros por empresa y auditoria.
         var claims = new List<Claim>
         {
             new(ClaimTypes.NameIdentifier, usuario.IdUsuario.ToString()),
