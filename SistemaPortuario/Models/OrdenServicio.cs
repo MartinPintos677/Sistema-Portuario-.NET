@@ -1,7 +1,7 @@
-namespace SistemaPortuario.Models;
+﻿namespace SistemaPortuario.Models;
 
 /// <summary>
-/// Catalogo de estados posibles para una orden de servicio.
+/// Catálogo de estados posibles para una orden de servicio.
 /// </summary>
 public class EstadoOrdenServicio
 {
@@ -72,3 +72,4 @@ public class Facturacion
 
     public OrdenServicio OrdenServicio { get; set; } = null!;
 }
+

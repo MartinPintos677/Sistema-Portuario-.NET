@@ -231,9 +231,9 @@ public class MaquinariaService(SistemaPortuarioDbContext context, ICurrentUserSe
             IdEstadoMantenimiento = estadoPendienteId,
             RegistroHorasOrigen = registro,
             FechaProgramada = DateOnly.FromDateTime(DateTime.UtcNow.Date),
-            Descripcion = $"Revision preventiva por cruce de {umbralActual * MaintenanceHourStep:0} horas acumuladas.",
+            Descripcion = $"Revisión preventiva por cruce de {umbralActual * MaintenanceHourStep:0} horas acumuladas.",
             HorasMaquinaAlMomento = maquinaria.HorasAcumuladas,
-            Observaciones = "Alerta automatica generada al registrar horas de maquinaria."
+            Observaciones = "Alerta automática generada al registrar horas de maquinaria."
         });
 
         if (currentUser.IdUsuario.HasValue)
@@ -244,7 +244,7 @@ public class MaquinariaService(SistemaPortuarioDbContext context, ICurrentUserSe
                 IdOrdenServicio = registro.IdOrdenServicio,
                 Tipo = "Sistema",
                 Destinatario = "Sistema",
-                Mensaje = $"La maquinaria {maquinaria.Codigo} acumulo {maquinaria.HorasAcumuladas:0.##} horas. Corresponde revisar mantenimiento preventivo.",
+                Mensaje = $"La maquinaria {maquinaria.Codigo} acumuló {maquinaria.HorasAcumuladas:0.##} horas. Corresponde revisar mantenimiento preventivo.",
                 Estado = "Pendiente"
             });
         }
@@ -266,7 +266,7 @@ public class MaquinariaService(SistemaPortuarioDbContext context, ICurrentUserSe
         var tipo = new TipoMantenimiento
         {
             Nombre = nombre,
-            Descripcion = "Revision preventiva automatica cada 200 horas trabajadas.",
+            Descripcion = "Revisión preventiva automática cada 200 horas trabajadas.",
             UmbralHoras = MaintenanceHourStep
         };
 

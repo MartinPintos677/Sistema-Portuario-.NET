@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,12 +12,12 @@ using SistemaPortuario.Services;
 var builder = WebApplication.CreateBuilder(args);
 const string CorsPolicy = "SistemaPortuarioFrontend";
 
-// Configuracion base de logging para desarrollo y diagnostico en despliegues.
+// Configuracion base de logging para desarrollo y diagnóstico en despliegues.
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 
-// La cadena de conexion se exige al iniciar para fallar rapido si falta configuracion.
+// La cadena de conexión se exige al iniciar para fallar rápido si falta configuracion.
 var connectionString = builder.Configuration.GetConnectionString("SistemaPortuarioConnection");
 if (string.IsNullOrWhiteSpace(connectionString))
 {
@@ -51,7 +51,7 @@ if (string.IsNullOrWhiteSpace(jwtOptions.SecretKey))
     throw new InvalidOperationException("Falta configurar Jwt:SecretKey. En produccion usa la variable Jwt__SecretKey.");
 }
 
-// Autenticacion JWT stateless para proteger endpoints por usuario, empresa y rol.
+// Autenticación JWT stateless para proteger endpoints por usuario, empresa y rol.
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -155,14 +155,14 @@ app.UseExceptionHandler(exceptionHandlerApp =>
             Status = statusCode,
             Title = statusCode switch
             {
-                StatusCodes.Status400BadRequest => "Solicitud invalida.",
+                StatusCodes.Status400BadRequest => "Solicitud invÃ¡lida.",
                 StatusCodes.Status403Forbidden => "Acceso denegado.",
                 StatusCodes.Status409Conflict => "Conflicto al procesar la solicitud.",
-                _ => "Ocurrio un error inesperado."
+                _ => "OcurriÃ³ un error inesperado."
             },
             Detail = app.Environment.IsDevelopment()
                 ? exception?.Message
-                : "No fue posible completar la operacion.",
+                : "No fue posible completar la operaciÃ³n.",
             Instance = context.Request.Path
         };
 
@@ -193,3 +193,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

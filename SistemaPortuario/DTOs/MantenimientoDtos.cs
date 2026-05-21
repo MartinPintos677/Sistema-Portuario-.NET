@@ -1,8 +1,8 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPortuario.DTOs;
 
-// DTOs de mantenimiento de maquinaria y sus catalogos.
+// DTOs de mantenimiento de maquinaria y sus catálogos.
 public record TipoMantenimientoResponseDto(
     int IdTipoMantenimiento,
     string Nombre,
@@ -74,3 +74,4 @@ public record MantenimientoUpdateDto(
     decimal? HorasMaquinaAlMomento,
     [StringLength(1000)]
     string? Observaciones);
+

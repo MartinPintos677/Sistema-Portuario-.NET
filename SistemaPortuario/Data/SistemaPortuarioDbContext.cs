@@ -1,4 +1,4 @@
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -9,7 +9,7 @@ namespace SistemaPortuario.Data;
 
 /// <summary>
 /// DbContext principal del sistema portuario.
-/// Expone las tablas del dominio y centraliza la auditoria de cambios.
+/// Expone las tablas del dominio y centraliza la auditoría de cambios.
 /// </summary>
 public class SistemaPortuarioDbContext(
     DbContextOptions<SistemaPortuarioDbContext> options,
@@ -27,7 +27,7 @@ public class SistemaPortuarioDbContext(
 
     private bool _savingAudit;
 
-    // DbSets del dominio. Se organizan por modulo funcional del sistema.
+    // DbSets del dominio. Se organizan por módulo funcional del sistema.
     public DbSet<Empresa> Empresas => Set<Empresa>();
     public DbSet<Rol> Roles => Set<Rol>();
     public DbSet<Usuario> Usuarios => Set<Usuario>();
@@ -112,7 +112,7 @@ public class SistemaPortuarioDbContext(
             .ToList();
     }
 
-    // La auditoria toma el usuario desde el claim del JWT emitido por AuthService.
+    // La auditoría toma el usuario desde el claim del JWT emitido por AuthService.
     private int? GetCurrentUserId()
     {
         var value = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -201,3 +201,4 @@ public class SistemaPortuarioDbContext(
         }
     }
 }
+

@@ -1,7 +1,7 @@
 namespace SistemaPortuario.Models;
 
 /// <summary>
-/// Registro de auditoria generado automaticamente al guardar cambios.
+/// Registro de auditoría generado automáticamente al guardar cambios.
 /// </summary>
 public class Trazabilidad
 {

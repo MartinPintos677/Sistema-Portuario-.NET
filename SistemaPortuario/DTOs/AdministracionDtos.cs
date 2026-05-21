@@ -1,8 +1,8 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPortuario.DTOs;
 
-// DTOs de tareas administrativas y eventos de calendario.
+// DTOs de táreas administrativas y eventos de calendario.
 public record EstadoTareaResponseDto(
     int IdEstadoTarea,
     string Nombre);
@@ -82,3 +82,4 @@ public record EventoCalendarioUpdateDto(
     DateTime? FechaFin,
     [Required, StringLength(80)]
     string TipoEvento);
+

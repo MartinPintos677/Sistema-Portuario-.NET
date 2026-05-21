@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaPortuario.DTOs;
 using SistemaPortuario.Security;
@@ -10,7 +10,7 @@ namespace SistemaPortuario.Controllers;
 [Route("api/[controller]")]
 [Authorize(Roles = AppRoles.Taller)]
 /// <summary>
-/// Endpoints para mantenimiento de maquinaria y sus catalogos.
+/// Endpoints para mantenimiento de maquinaria y sus catálogos.
 /// </summary>
 public class MantenimientosController(IMantenimientoService service) : ControllerBase
 {
@@ -54,3 +54,4 @@ public class MantenimientosController(IMantenimientoService service) : Controlle
         return result is null ? NotFound() : Ok(result);
     }
 }
+

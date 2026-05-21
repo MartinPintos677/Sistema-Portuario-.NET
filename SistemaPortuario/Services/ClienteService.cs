@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SistemaPortuario.Data;
 using SistemaPortuario.DTOs;
 using SistemaPortuario.Models;
@@ -7,7 +7,7 @@ namespace SistemaPortuario.Services;
 
 /// <summary>
 /// Servicio para clientes.
-/// Controla que las operaciones queden dentro del alcance de empresa permitido.
+/// Controla que las operaciónes queden dentro del alcance de empresa permitido.
 /// </summary>
 public class ClienteService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IClienteService
 {
@@ -97,3 +97,4 @@ public class ClienteService(SistemaPortuarioDbContext context, ICurrentUserServi
         }
     }
 }
+

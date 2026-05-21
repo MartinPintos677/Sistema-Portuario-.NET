@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -744,13 +744,13 @@ namespace SistemaPortuario.Migrations
                 columns: new[] { "IdEstadoOrden", "Descripcion", "Nombre" },
                 values: new object[,]
                 {
-                    { 1, "Orden creada y pendiente de asignacion o inicio.", "Solicitada" },
+                    { 1, "Orden creada y pendiente de asignación o inicio.", "Solicitada" },
                     { 2, "Orden asignada a operario y maquinaria.", "Asignada" },
-                    { 3, "Servicio en ejecucion.", "EnProceso" },
-                    { 4, "Finalizada por operario y pendiente de validacion.", "PendienteValidacion" },
+                    { 3, "Servicio en ejecución.", "EnProceso" },
+                    { 4, "Finalizada por operario y pendiente de validación.", "PendienteValidacion" },
                     { 5, "Validada por encargado.", "Validada" },
                     { 6, "PDF enviado al cliente.", "EnviadaCliente" },
-                    { 7, "Orden enviada o registrada en facturacion.", "Facturada" },
+                    { 7, "Orden enviada o registrada en facturación.", "Facturada" },
                     { 8, "Orden cancelada.", "Cancelada" }
                 });
 
@@ -1152,3 +1152,4 @@ namespace SistemaPortuario.Migrations
         }
     }
 }
+

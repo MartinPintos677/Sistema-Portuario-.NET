@@ -1,10 +1,10 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SistemaPortuario.DTOs;
 
 namespace SistemaPortuario.Services;
 
 /// <summary>
-/// Helpers de paginacion para consultas IQueryable.
+/// Helpers de páginacion para consultas IQueryable.
 /// Aplica limites seguros y devuelve el formato esperado por el frontend.
 /// </summary>
 public static class PaginationExtensions
@@ -29,3 +29,4 @@ public static class PaginationExtensions
         return new PagedResponseDto<T>(items, pageNumber, pageSize, totalCount, totalPages);
     }
 }
+

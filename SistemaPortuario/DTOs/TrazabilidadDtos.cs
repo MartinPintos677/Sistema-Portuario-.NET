@@ -1,6 +1,6 @@
-namespace SistemaPortuario.DTOs;
+﻿namespace SistemaPortuario.DTOs;
 
-// DTOs de auditoria expuestos al frontend de trazabilidad.
+// DTOs de auditoría expuestos al frontend de trazabilidad.
 public record TrazabilidadResponseDto(
     long IdTrazabilidad,
     int IdUsuario,
@@ -11,3 +11,4 @@ public record TrazabilidadResponseDto(
     string IdRegistroAfectado,
     string? DatosPrevios,
     string? DatosNuevos);
+

@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SistemaPortuario.Data;
 using SistemaPortuario.DTOs;
 using SistemaPortuario.Models;
@@ -7,7 +7,7 @@ namespace SistemaPortuario.Services;
 
 /// <summary>
 /// Servicio para mantenimiento de maquinaria.
-/// Gestiona catalogos, ordenes de mantenimiento y cierre de tareas tecnicas.
+/// Gestiona catÃ¡logos, Ã³rdenes de mantenimiento y cierre de táreas tÃ©cnicas.
 /// </summary>
 public class MantenimientoService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IMantenimientoService
 {
@@ -159,3 +159,4 @@ public class MantenimientoService(SistemaPortuarioDbContext context, ICurrentUse
         }
     }
 }
+

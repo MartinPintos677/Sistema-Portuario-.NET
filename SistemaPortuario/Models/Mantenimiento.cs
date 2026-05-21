@@ -1,7 +1,7 @@
-namespace SistemaPortuario.Models;
+﻿namespace SistemaPortuario.Models;
 
 /// <summary>
-/// Catalogo de tipos de mantenimiento aplicables a maquinaria.
+/// Catálogo de tipos de mantenimiento aplicables a maquinaria.
 /// </summary>
 public class TipoMantenimiento
 {
@@ -42,3 +42,4 @@ public class Mantenimiento
     public Usuario? Responsable { get; set; }
     public RegistroHorasMaquinaria? RegistroHorasOrigen { get; set; }
 }
+

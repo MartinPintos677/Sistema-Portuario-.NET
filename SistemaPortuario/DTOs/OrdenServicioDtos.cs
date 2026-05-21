@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPortuario.DTOs;
 
-// DTOs de ordenes de servicio, estados, documentos y facturacion.
+// DTOs de órdenes de servicio, estados, documentos y facturación.
 public record EstadoOrdenServicioResponseDto(
     int IdEstadoOrden,
     string Nombre,

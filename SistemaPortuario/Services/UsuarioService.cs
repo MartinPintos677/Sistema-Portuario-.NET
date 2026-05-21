@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SistemaPortuario.Data;
 using SistemaPortuario.DTOs;
 using SistemaPortuario.Models;
@@ -7,7 +7,7 @@ namespace SistemaPortuario.Services;
 
 /// <summary>
 /// Servicio para usuarios y roles.
-/// Gestiona altas, ediciones, cambios de password y activacion de cuentas.
+/// Gestiona altas, ediciónes, cambios de password y activacíon de cuentas.
 /// </summary>
 public class UsuarioService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IUsuarioService
 {
@@ -116,3 +116,4 @@ public class UsuarioService(SistemaPortuarioDbContext context, ICurrentUserServi
         }
     }
 }
+

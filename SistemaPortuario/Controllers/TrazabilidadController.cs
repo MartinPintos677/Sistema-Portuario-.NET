@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaPortuario.DTOs;
 using SistemaPortuario.Security;
@@ -10,7 +10,7 @@ namespace SistemaPortuario.Controllers;
 [Route("api/[controller]")]
 [Authorize(Roles = AppRoles.Administrador)]
 /// <summary>
-/// Endpoints de auditoria para revisar cambios registrados por el DbContext.
+/// Endpoints de auditoría para revisar cambios registrados por el DbContext.
 /// </summary>
 public class TrazabilidadController(ITrazabilidadService service) : ControllerBase
 {
@@ -22,3 +22,4 @@ public class TrazabilidadController(ITrazabilidadService service) : ControllerBa
     public async Task<ActionResult<PagedResponseDto<TrazabilidadResponseDto>>> GetByEntidad(string entidad, string idRegistroAfectado, [FromQuery] PaginationRequestDto pagination, CancellationToken cancellationToken) =>
         Ok(await service.GetByEntidadAsync(entidad, idRegistroAfectado, pagination, cancellationToken));
 }
+

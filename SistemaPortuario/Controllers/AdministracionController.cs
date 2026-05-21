@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaPortuario.DTOs;
 using SistemaPortuario.Security;
@@ -10,7 +10,7 @@ namespace SistemaPortuario.Controllers;
 [Route("api/[controller]")]
 [Authorize(Roles = AppRoles.GestionOperativa)]
 /// <summary>
-/// Endpoints para tareas administrativas y eventos de calendario.
+/// Endpoints para táreas administrativas y eventos de calendario.
 /// </summary>
 public class AdministracionController(IAdministracionService service) : ControllerBase
 {
@@ -51,3 +51,4 @@ public class AdministracionController(IAdministracionService service) : Controll
     public async Task<ActionResult<EventoCalendarioResponseDto>> CreateEvento(EventoCalendarioCreateDto dto, CancellationToken cancellationToken) =>
         Ok(await service.CreateEventoAsync(User.GetUsuarioId(), dto, cancellationToken));
 }
+

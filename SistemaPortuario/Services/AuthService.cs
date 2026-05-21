@@ -1,4 +1,4 @@
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 using System.Security.Claims;
 using System.Text;
@@ -14,7 +14,7 @@ using SistemaPortuario.Security;
 namespace SistemaPortuario.Services;
 
 /// <summary>
-/// Servicio de autenticacion.
+/// Servicio de autenticación.
 /// Valida credenciales, emite JWT, administra refresh tokens y permite crear
 /// el primer administrador cuando la base esta vacia.
 /// </summary>
@@ -146,7 +146,7 @@ public class AuthService(SistemaPortuarioDbContext context, IOptions<JwtOptions>
 
     private string CrearToken(Usuario usuario, DateTime expira)
     {
-        // Claims minimos que usan autorizacion, filtros por empresa y auditoria.
+        // Claims minimos que usan autorizacion, filtros por empresa y auditoría.
         var claims = new List<Claim>
         {
             new(ClaimTypes.NameIdentifier, usuario.IdUsuario.ToString()),
@@ -188,3 +188,4 @@ public class AuthService(SistemaPortuarioDbContext context, IOptions<JwtOptions>
         return Convert.ToHexString(bytes);
     }
 }
+

@@ -1,8 +1,8 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPortuario.DTOs;
 
-// DTOs de autenticacion y administracion inicial de usuarios.
+// DTOs de autenticación y administracion inicial de usuarios.
 // Las anotaciones validan el payload antes de llegar a los services.
 public record LoginRequestDto(
     [Required, EmailAddress, StringLength(180)]
@@ -68,3 +68,4 @@ public record CambiarPasswordRequestDto(
     string PasswordActual,
     [Required, StringLength(100, MinimumLength = 6)]
     string PasswordNueva);
+

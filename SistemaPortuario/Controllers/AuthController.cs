@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaPortuario.DTOs;
 using SistemaPortuario.Services;
@@ -8,7 +8,7 @@ namespace SistemaPortuario.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 /// <summary>
-/// Endpoints de autenticacion, refresh token y bootstrap del primer administrador.
+/// Endpoints de autenticación, refresh token y bootstrap del primer administrador.
 /// </summary>
 public class AuthController(IAuthService authService) : ControllerBase
 {
@@ -17,7 +17,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     public async Task<ActionResult<LoginResponseDto>> Login(LoginRequestDto dto, CancellationToken cancellationToken)
     {
         var result = await authService.LoginAsync(dto, cancellationToken);
-        return result is null ? Unauthorized("Credenciales invalidas.") : Ok(result);
+        return result is null ? Unauthorized("Credenciales invÃ¡lidas.") : Ok(result);
     }
 
     [HttpPost("primer-administrador")]
@@ -35,7 +35,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     public async Task<ActionResult<LoginResponseDto>> Refresh(RefreshTokenRequestDto dto, CancellationToken cancellationToken)
     {
         var result = await authService.RefreshAsync(dto, cancellationToken);
-        return result is null ? Unauthorized("La sesion expiro. Inicie sesion nuevamente.") : Ok(result);
+        return result is null ? Unauthorized("La sesiÃ³n expirÃ³. Inicie sesiÃ³n nuevamente.") : Ok(result);
     }
 
     [HttpPost("logout")]
@@ -46,3 +46,4 @@ public class AuthController(IAuthService authService) : ControllerBase
         return NoContent();
     }
 }
+

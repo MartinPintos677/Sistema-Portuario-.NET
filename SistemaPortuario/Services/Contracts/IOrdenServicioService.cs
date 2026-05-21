@@ -1,9 +1,9 @@
-using SistemaPortuario.DTOs;
+﻿using SistemaPortuario.DTOs;
 
 namespace SistemaPortuario.Services;
 
 /// <summary>
-/// Contrato de operaciones de ordenes de servicio.
+/// Contrato de operaciónes de Ã³rdenes de servicio.
 /// </summary>
 public interface IOrdenServicioService
 {
@@ -15,3 +15,4 @@ public interface IOrdenServicioService
     Task<OrdenServicioResponseDto?> FinalizarAsync(int id, FinalizarOrdenServicioDto dto, CancellationToken cancellationToken = default);
     Task<FacturacionResponseDto> CrearFacturacionAsync(FacturacionCreateDto dto, CancellationToken cancellationToken = default);
 }
+

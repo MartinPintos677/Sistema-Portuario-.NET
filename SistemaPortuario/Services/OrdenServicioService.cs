@@ -7,8 +7,8 @@ using SistemaPortuario.Security;
 namespace SistemaPortuario.Services;
 
 /// <summary>
-/// Servicio de ordenes de servicio.
-/// Concentra reglas de creacion, edicion, cierre y facturacion de ordenes,
+/// Servicio de órdenes de servicio.
+/// Concentra reglas de creación, edición, cierre y facturación de órdenes,
 /// respetando alcance por empresa y rol del usuario actual.
 /// </summary>
 public class OrdenServicioService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IOrdenServicioService
@@ -153,7 +153,7 @@ public class OrdenServicioService(SistemaPortuarioDbContext context, ICurrentUse
 
     private IQueryable<OrdenServicio> OrdenesPermitidas()
     {
-        // Operario solo ve sus ordenes; otros roles quedan acotados a su empresa.
+        // Operario solo ve sus órdenes; otros roles quedan acotados a su empresa.
         var query = OrdenesConRelaciones();
         if (currentUser.Rol == AppRoles.Operario && currentUser.IdUsuario.HasValue)
         {

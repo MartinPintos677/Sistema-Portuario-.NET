@@ -1,7 +1,7 @@
-namespace SistemaPortuario.Models;
+﻿namespace SistemaPortuario.Models;
 
 /// <summary>
-/// Refresh token persistido como hash para renovar sesiones de forma segura.
+/// Refresh token persistido como hash para renovar sesiónes de forma segura.
 /// </summary>
 public class RefreshToken
 {
@@ -17,3 +17,4 @@ public class RefreshToken
 
     public bool Activo => FechaRevocacion is null && Expira > DateTime.UtcNow;
 }
+

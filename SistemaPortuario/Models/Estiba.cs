@@ -1,7 +1,7 @@
-namespace SistemaPortuario.Models;
+﻿namespace SistemaPortuario.Models;
 
 /// <summary>
-/// Personal operativo utilizado en citaciones de estiba.
+/// Personal operativo útilizado en citaciones de estiba.
 /// </summary>
 public class PersonalEstiba
 {
@@ -105,3 +105,4 @@ public class DetalleCitacionEstiba
     public Cuadrilla? Cuadrilla { get; set; }
     public LiquidacionEstiba? Liquidacion { get; set; }
 }
+

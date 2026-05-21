@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SistemaPortuario.Data;
 using SistemaPortuario.DTOs;
 using SistemaPortuario.Models;
@@ -7,7 +7,7 @@ using SistemaPortuario.Security;
 namespace SistemaPortuario.Services;
 
 /// <summary>
-/// Servicio para tareas administrativas y eventos de calendario.
+/// Servicio para táreas administrativas y eventos de calendario.
 /// Aplica filtros de empresa y mapea entidades a DTOs de uso del frontend.
 /// </summary>
 public class AdministracionService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IAdministracionService
@@ -186,3 +186,4 @@ public class AdministracionService(SistemaPortuarioDbContext context, ICurrentUs
         }
     }
 }
+

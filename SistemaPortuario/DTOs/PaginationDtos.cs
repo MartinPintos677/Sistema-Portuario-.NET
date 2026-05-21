@@ -1,10 +1,10 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPortuario.DTOs;
 
 /// <summary>
-/// Parametros de paginacion recibidos por listados.
-/// Los metodos seguros evitan paginas invalidas o tamanos excesivos.
+/// Parámetros de páginacion recibidos por listados.
+/// Los mÃ©todos seguros evitan pÃ¡ginas invÃ¡lidas o tamaÃ±os excesivos.
 /// </summary>
 public class PaginationRequestDto
 {
@@ -20,7 +20,7 @@ public class PaginationRequestDto
 }
 
 /// <summary>
-/// Formato comun de respuesta paginada consumido por las tablas del frontend.
+/// Formato comun de respuesta páginada consumido por las tablas del frontend.
 /// </summary>
 public record PagedResponseDto<T>(
     IReadOnlyList<T> Items,
@@ -28,3 +28,4 @@ public record PagedResponseDto<T>(
     int PageSize,
     int TotalCount,
     int TotalPages);
+

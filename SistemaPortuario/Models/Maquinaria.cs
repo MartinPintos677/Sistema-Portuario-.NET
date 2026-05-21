@@ -1,7 +1,7 @@
-namespace SistemaPortuario.Models;
+﻿namespace SistemaPortuario.Models;
 
 /// <summary>
-/// Catalogo de tipos de maquinaria.
+/// Catálogo de tipos de maquinaria.
 /// </summary>
 public class TipoMaquinaria
 {
@@ -12,7 +12,7 @@ public class TipoMaquinaria
 }
 
 /// <summary>
-/// Maquinaria disponible para asignar a ordenes y registrar horas.
+/// Maquinaria disponible para asignar a Ã³rdenes y registrar horas.
 /// </summary>
 public class Maquinaria
 {
@@ -50,3 +50,4 @@ public class RegistroHorasMaquinaria
     public OrdenServicio? OrdenServicio { get; set; }
     public ICollection<Mantenimiento> MantenimientosOriginados { get; set; } = new List<Mantenimiento>();
 }
+

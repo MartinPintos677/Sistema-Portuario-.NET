@@ -1,7 +1,7 @@
-namespace SistemaPortuario.Models;
+﻿namespace SistemaPortuario.Models;
 
 /// <summary>
-/// Catalogo de estados para tareas administrativas.
+/// Catálogo de estados para táreas administrativas.
 /// </summary>
 public class EstadoTarea
 {
@@ -43,3 +43,4 @@ public class EventoCalendario
     public Usuario Creador { get; set; } = null!;
     public TareaAdministrativa? Tarea { get; set; }
 }
+

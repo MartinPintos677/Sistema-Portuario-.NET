@@ -6,7 +6,7 @@ namespace SistemaPortuario.Services;
 
 /// <summary>
 /// Servicio de consulta de trazabilidad.
-/// Lee los registros generados automaticamente por el DbContext.
+/// Lee los registros generados automáticamente por el DbContext.
 /// </summary>
 public class TrazabilidadService(SistemaPortuarioDbContext context) : ITrazabilidadService
 {
