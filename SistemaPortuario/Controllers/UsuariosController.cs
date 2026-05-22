@@ -32,6 +32,22 @@ public class UsuariosController(IUsuarioService service) : ControllerBase
         return result is null ? NotFound() : Ok(result);
     }
 
+    [HttpGet("perfil")]
+    public async Task<ActionResult<UsuarioResponseDto>> GetPerfil(CancellationToken cancellationToken)
+    {
+        var result = await service.GetPerfilAsync(cancellationToken);
+        return result is null ? NotFound() : Ok(result);
+    }
+
+    [HttpPut("perfil")]
+    public async Task<ActionResult<UsuarioResponseDto>> UpdatePerfil(
+        UsuarioPerfilUpdateDto dto,
+        CancellationToken cancellationToken)
+    {
+        var result = await service.UpdatePerfilAsync(dto, cancellationToken);
+        return result is null ? NotFound() : Ok(result);
+    }
+
     [HttpPost]
     [Authorize(Roles = AppRoles.Administrador)]
     public async Task<ActionResult<UsuarioResponseDto>> Create(UsuarioCreateDto dto, CancellationToken cancellationToken)

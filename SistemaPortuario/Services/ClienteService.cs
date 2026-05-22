@@ -7,7 +7,7 @@ namespace SistemaPortuario.Services;
 
 /// <summary>
 /// Servicio para clientes.
-/// Controla que las operaciónes queden dentro del alcance de empresa permitido.
+/// Controla que las operaciones queden dentro del alcance de empresa permitido.
 /// </summary>
 public class ClienteService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IClienteService
 {
@@ -93,7 +93,7 @@ public class ClienteService(SistemaPortuarioDbContext context, ICurrentUserServi
         var existe = await context.Empresas.AnyAsync(e => e.IdEmpresa == idEmpresa && e.Activa, cancellationToken);
         if (!existe)
         {
-            throw new ArgumentException("La empresa indicada no existe o esta inactiva.");
+            throw new ArgumentException("La empresa indicada no existe o está inactiva.");
         }
     }
 }

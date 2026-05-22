@@ -4,7 +4,7 @@ using SistemaPortuario.DTOs;
 namespace SistemaPortuario.Services;
 
 /// <summary>
-/// Helpers de páginacion para consultas IQueryable.
+/// Helpers de paginación para consultas IQueryable.
 /// Aplica limites seguros y devuelve el formato esperado por el frontend.
 /// </summary>
 public static class PaginationExtensions

@@ -3,8 +3,8 @@
 namespace SistemaPortuario.DTOs;
 
 /// <summary>
-/// Parámetros de páginacion recibidos por listados.
-/// Los mÃ©todos seguros evitan pÃ¡ginas invÃ¡lidas o tamaÃ±os excesivos.
+/// Parámetros de paginación recibidos por listados.
+/// Los métodos seguros evitan páginas inválidas o tamaños excesivos.
 /// </summary>
 public class PaginationRequestDto
 {
@@ -20,7 +20,7 @@ public class PaginationRequestDto
 }
 
 /// <summary>
-/// Formato comun de respuesta páginada consumido por las tablas del frontend.
+/// Formato común de respuesta paginada consumido por las tablas del frontend.
 /// </summary>
 public record PagedResponseDto<T>(
     IReadOnlyList<T> Items,

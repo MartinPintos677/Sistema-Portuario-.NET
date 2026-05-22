@@ -17,7 +17,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     public async Task<ActionResult<LoginResponseDto>> Login(LoginRequestDto dto, CancellationToken cancellationToken)
     {
         var result = await authService.LoginAsync(dto, cancellationToken);
-        return result is null ? Unauthorized("Credenciales invÃ¡lidas.") : Ok(result);
+        return result is null ? Unauthorized("Credenciales inválidas.") : Ok(result);
     }
 
     [HttpPost("primer-administrador")]
@@ -35,7 +35,7 @@ public class AuthController(IAuthService authService) : ControllerBase
     public async Task<ActionResult<LoginResponseDto>> Refresh(RefreshTokenRequestDto dto, CancellationToken cancellationToken)
     {
         var result = await authService.RefreshAsync(dto, cancellationToken);
-        return result is null ? Unauthorized("La sesiÃ³n expirÃ³. Inicie sesiÃ³n nuevamente.") : Ok(result);
+        return result is null ? Unauthorized("La sesión expiró. Inicie sesión nuevamente.") : Ok(result);
     }
 
     [HttpPost("logout")]

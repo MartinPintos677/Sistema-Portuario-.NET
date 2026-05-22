@@ -212,6 +212,7 @@ public class EstibaService(SistemaPortuarioDbContext context, ICurrentUserServic
     public async Task<DetalleCitacionEstibaResponseDto> CreateDetalleCitacionAsync(DetalleCitacionEstibaCreateDto dto, CancellationToken cancellationToken = default)
     {
         await EnsureDetalleScopeAsync(dto.IdCitacion, dto.IdPersonalEstiba, dto.IdCuadrilla, null, cancellationToken);
+        await EnsureDetalleNoDuplicadoAsync(dto.IdCitacion, dto.IdPersonalEstiba, cancellationToken);
 
         var entity = new DetalleCitacionEstiba
         {
@@ -393,7 +394,22 @@ public class EstibaService(SistemaPortuarioDbContext context, ICurrentUserServic
 
         if (!clienteValido)
         {
-            throw new ArgumentException("El cliente indicado no pertenece a la empresa de la citacion.");
+            throw new ArgumentException("El cliente indicado no pertenece a la empresa de la citación.");
+        }
+    }
+
+    private async Task EnsureDetalleNoDuplicadoAsync(
+        int idCitacion,
+        int idPersonalEstiba,
+        CancellationToken cancellationToken)
+    {
+        var yaExiste = await DetallesPermitidos().AnyAsync(
+            d => d.IdCitacion == idCitacion && d.IdPersonalEstiba == idPersonalEstiba,
+            cancellationToken);
+
+        if (yaExiste)
+        {
+            throw new ArgumentException("Ese personal ya está agregado al detalle de la citación.");
         }
     }
 
@@ -416,12 +432,12 @@ public class EstibaService(SistemaPortuarioDbContext context, ICurrentUserServic
 
         if (idEmpresaCitacion is null || idEmpresaPersonal is null)
         {
-            throw new ArgumentException("La citacion o el personal indicado no existe.");
+            throw new ArgumentException("La citación o el personal indicado no existe.");
         }
 
         if (idEmpresaCitacion != idEmpresaPersonal)
         {
-            throw new ArgumentException("La citacion y el personal deben pertenecer a la misma empresa.");
+            throw new ArgumentException("La citación y el personal deben pertenecer a la misma empresa.");
         }
 
         if (idCuadrilla.HasValue)
@@ -432,7 +448,7 @@ public class EstibaService(SistemaPortuarioDbContext context, ICurrentUserServic
 
             if (!cuadrillaValida)
             {
-                throw new ArgumentException("La cuadrilla no pertenece a la empresa de la citacion.");
+                throw new ArgumentException("La cuadrilla no pertenece a la empresa de la citación.");
             }
         }
 
@@ -444,7 +460,7 @@ public class EstibaService(SistemaPortuarioDbContext context, ICurrentUserServic
 
             if (!liquidacionValida)
             {
-                throw new ArgumentException("La liquidacion no pertenece a la empresa de la citacion.");
+                throw new ArgumentException("La liquidación no pertenece a la empresa de la citación.");
             }
         }
     }
@@ -459,7 +475,7 @@ public class EstibaService(SistemaPortuarioDbContext context, ICurrentUserServic
         var existe = await context.Empresas.AnyAsync(e => e.IdEmpresa == idEmpresa && e.Activa, cancellationToken);
         if (!existe)
         {
-            throw new ArgumentException("La empresa indicada no existe o esta inactiva.");
+            throw new ArgumentException("La empresa indicada no existe o está inactiva.");
         }
     }
 }

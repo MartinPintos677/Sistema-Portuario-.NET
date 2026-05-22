@@ -155,14 +155,14 @@ app.UseExceptionHandler(exceptionHandlerApp =>
             Status = statusCode,
             Title = statusCode switch
             {
-                StatusCodes.Status400BadRequest => "Solicitud invÃ¡lida.",
+                StatusCodes.Status400BadRequest => "Solicitud inválida.",
                 StatusCodes.Status403Forbidden => "Acceso denegado.",
                 StatusCodes.Status409Conflict => "Conflicto al procesar la solicitud.",
-                _ => "OcurriÃ³ un error inesperado."
+                _ => "Ocurrió un error inesperado."
             },
             Detail = app.Environment.IsDevelopment()
                 ? exception?.Message
-                : "No fue posible completar la operaciÃ³n.",
+                : "No fue posible completar la operación.",
             Instance = context.Request.Path
         };
 

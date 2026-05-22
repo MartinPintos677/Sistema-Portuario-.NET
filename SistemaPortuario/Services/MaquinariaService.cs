@@ -127,7 +127,7 @@ public class MaquinariaService(SistemaPortuarioDbContext context, ICurrentUserSe
 
             if (!maquinariaPerteneceAOrden)
             {
-                throw new ArgumentException("La maquinaria indicada no esta asignada ni facturada en la orden.");
+                throw new ArgumentException("La maquinaria indicada no está asignada ni facturada en la orden.");
             }
 
             if (currentUser.Rol == AppRoles.Operario)
@@ -201,7 +201,7 @@ public class MaquinariaService(SistemaPortuarioDbContext context, ICurrentUserSe
         var existe = await context.Empresas.AnyAsync(e => e.IdEmpresa == idEmpresa && e.Activa, cancellationToken);
         if (!existe)
         {
-            throw new ArgumentException("La empresa indicada no existe o esta inactiva.");
+            throw new ArgumentException("La empresa indicada no existe o está inactiva.");
         }
     }
 

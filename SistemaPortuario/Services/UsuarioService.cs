@@ -11,6 +11,8 @@ namespace SistemaPortuario.Services;
 /// </summary>
 public class UsuarioService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IUsuarioService
 {
+    private const string AdminDemoCorreo = "admin.demo@sistema-portuario.local";
+
     public async Task<List<RolResponseDto>> GetRolesAsync(CancellationToken cancellationToken = default) =>
         await context.Roles.AsNoTracking().OrderBy(r => r.Nombre).Select(r => r.ToDto()).ToListAsync(cancellationToken);
 
@@ -23,6 +25,18 @@ public class UsuarioService(SistemaPortuarioDbContext context, ICurrentUserServi
 
     public async Task<UsuarioResponseDto?> GetByIdAsync(int id, CancellationToken cancellationToken = default) =>
         (await UsuariosConRelaciones().FirstOrDefaultAsync(u => u.IdUsuario == id, cancellationToken))?.ToDto();
+
+    public async Task<UsuarioResponseDto?> GetPerfilAsync(CancellationToken cancellationToken = default)
+    {
+        if (!currentUser.IdUsuario.HasValue)
+        {
+            return null;
+        }
+
+        return (await UsuariosConRelaciones()
+            .FirstOrDefaultAsync(u => u.IdUsuario == currentUser.IdUsuario.Value && u.Activo, cancellationToken))
+            ?.ToDto();
+    }
 
     public async Task<UsuarioResponseDto> CreateAsync(UsuarioCreateDto dto, CancellationToken cancellationToken = default)
     {
@@ -55,6 +69,7 @@ public class UsuarioService(SistemaPortuarioDbContext context, ICurrentUserServi
             return null;
         }
 
+        var isAdminDemo = IsAdminDemo(entity);
         entity.IdEmpresa = dto.IdEmpresa;
         entity.IdRol = dto.IdRol;
         entity.Cedula = dto.Cedula;
@@ -63,8 +78,42 @@ public class UsuarioService(SistemaPortuarioDbContext context, ICurrentUserServi
         entity.Correo = dto.Correo;
         entity.Telefono = dto.Telefono;
         entity.Activo = dto.Activo;
+        if (isAdminDemo)
+        {
+            entity.Activo = true;
+        }
+
+        if (!string.IsNullOrWhiteSpace(dto.Password))
+        {
+            entity.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+        }
+
         await context.SaveChangesAsync(cancellationToken);
         return await GetByIdAsync(id, cancellationToken);
+    }
+
+    public async Task<UsuarioResponseDto?> UpdatePerfilAsync(UsuarioPerfilUpdateDto dto, CancellationToken cancellationToken = default)
+    {
+        if (!currentUser.IdUsuario.HasValue)
+        {
+            return null;
+        }
+
+        var entity = await context.Usuarios
+            .FirstOrDefaultAsync(u => u.IdUsuario == currentUser.IdUsuario.Value && u.Activo, cancellationToken);
+        if (entity is null)
+        {
+            return null;
+        }
+
+        entity.Telefono = dto.Telefono;
+        if (!string.IsNullOrWhiteSpace(dto.Password))
+        {
+            entity.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+        }
+
+        await context.SaveChangesAsync(cancellationToken);
+        return await GetPerfilAsync(cancellationToken);
     }
 
     public async Task<bool> SetActivoAsync(int id, bool activo, CancellationToken cancellationToken = default)
@@ -73,6 +122,11 @@ public class UsuarioService(SistemaPortuarioDbContext context, ICurrentUserServi
         if (entity is null)
         {
             return false;
+        }
+
+        if (!activo && IsAdminDemo(entity))
+        {
+            throw new ArgumentException("El administrador demo principal no puede desactivarse.");
         }
 
         entity.Activo = activo;
@@ -112,8 +166,11 @@ public class UsuarioService(SistemaPortuarioDbContext context, ICurrentUserServi
         var existe = await context.Empresas.AnyAsync(e => e.IdEmpresa == idEmpresa && e.Activa, cancellationToken);
         if (!existe)
         {
-            throw new ArgumentException("La empresa indicada no existe o esta inactiva.");
+            throw new ArgumentException("La empresa indicada no existe o está inactiva.");
         }
     }
+
+    private static bool IsAdminDemo(Usuario usuario) =>
+        string.Equals(usuario.Correo, AdminDemoCorreo, StringComparison.OrdinalIgnoreCase);
 }
 

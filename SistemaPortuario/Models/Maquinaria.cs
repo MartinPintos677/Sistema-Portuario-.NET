@@ -12,7 +12,7 @@ public class TipoMaquinaria
 }
 
 /// <summary>
-/// Maquinaria disponible para asignar a Ã³rdenes y registrar horas.
+/// Maquinaria disponible para asignar a órdenes y registrar horas.
 /// </summary>
 public class Maquinaria
 {

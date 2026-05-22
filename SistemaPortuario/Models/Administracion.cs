@@ -1,7 +1,7 @@
 ﻿namespace SistemaPortuario.Models;
 
 /// <summary>
-/// Catálogo de estados para táreas administrativas.
+/// Catálogo de estados para tareas administrativas.
 /// </summary>
 public class EstadoTarea
 {

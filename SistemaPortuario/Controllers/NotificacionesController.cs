@@ -10,7 +10,7 @@ namespace SistemaPortuario.Controllers;
 [Route("api/[controller]")]
 [Authorize]
 /// <summary>
-/// Endpoints para notificaciones y actualizacion de estado.
+/// Endpoints para notificaciones y actualización de estado.
 /// </summary>
 public class NotificacionesController(INotificacionService service) : ControllerBase
 {

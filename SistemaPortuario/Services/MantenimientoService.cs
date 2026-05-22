@@ -7,7 +7,7 @@ namespace SistemaPortuario.Services;
 
 /// <summary>
 /// Servicio para mantenimiento de maquinaria.
-/// Gestiona catÃ¡logos, Ã³rdenes de mantenimiento y cierre de táreas tÃ©cnicas.
+/// Gestiona catálogos, órdenes de mantenimiento y cierre de tareas técnicas.
 /// </summary>
 public class MantenimientoService(SistemaPortuarioDbContext context, ICurrentUserService currentUser) : IMantenimientoService
 {

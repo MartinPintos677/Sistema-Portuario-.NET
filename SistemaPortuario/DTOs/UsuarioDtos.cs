@@ -82,4 +82,12 @@ public record UsuarioUpdateDto(
     string Correo,
     [StringLength(50)]
     string? Telefono,
-    bool Activo);
+    bool Activo,
+    [StringLength(100, MinimumLength = 6)]
+    string? Password);
+
+public record UsuarioPerfilUpdateDto(
+    [StringLength(50)]
+    string? Telefono,
+    [StringLength(100, MinimumLength = 6)]
+    string? Password);

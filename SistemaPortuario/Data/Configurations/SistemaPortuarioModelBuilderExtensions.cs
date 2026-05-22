@@ -599,13 +599,13 @@ public static class SistemaPortuarioModelBuilderExtensions
             new Rol { IdRol = 4, Nombre = "Oficina" });
 
         modelBuilder.Entity<EstadoOrdenServicio>().HasData(
-            new EstadoOrdenServicio { IdEstadoOrden = 1, Nombre = "Solicitada", Descripcion = "Orden creada y pendiente de asignaciÃ³n o inicio." },
+            new EstadoOrdenServicio { IdEstadoOrden = 1, Nombre = "Solicitada", Descripcion = "Orden creada y pendiente de asignación o inicio." },
             new EstadoOrdenServicio { IdEstadoOrden = 2, Nombre = "Asignada", Descripcion = "Orden asignada a operario y maquinaria." },
-            new EstadoOrdenServicio { IdEstadoOrden = 3, Nombre = "EnProceso", Descripcion = "Servicio en ejecuciÃ³n." },
-            new EstadoOrdenServicio { IdEstadoOrden = 4, Nombre = "PendienteValidacion", Descripcion = "Finalizada por operario y pendiente de validaciÃ³n." },
+            new EstadoOrdenServicio { IdEstadoOrden = 3, Nombre = "EnProceso", Descripcion = "Servicio en ejecución." },
+            new EstadoOrdenServicio { IdEstadoOrden = 4, Nombre = "PendienteValidacion", Descripcion = "Finalizada por operario y pendiente de validación." },
             new EstadoOrdenServicio { IdEstadoOrden = 5, Nombre = "Validada", Descripcion = "Validada por encargado." },
             new EstadoOrdenServicio { IdEstadoOrden = 6, Nombre = "EnviadaCliente", Descripcion = "PDF enviado al cliente." },
-            new EstadoOrdenServicio { IdEstadoOrden = 7, Nombre = "Facturada", Descripcion = "Orden enviada o registrada en facturaciÃ³n." },
+            new EstadoOrdenServicio { IdEstadoOrden = 7, Nombre = "Facturada", Descripcion = "Orden enviada o registrada en facturación." },
             new EstadoOrdenServicio { IdEstadoOrden = 8, Nombre = "Cancelada", Descripcion = "Orden cancelada." });
 
         modelBuilder.Entity<EstadoMantenimiento>().HasData(

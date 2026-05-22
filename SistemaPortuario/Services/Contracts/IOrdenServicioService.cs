@@ -3,7 +3,7 @@
 namespace SistemaPortuario.Services;
 
 /// <summary>
-/// Contrato de operaciónes de Ã³rdenes de servicio.
+/// Contrato de operaciones de órdenes de servicio.
 /// </summary>
 public interface IOrdenServicioService
 {

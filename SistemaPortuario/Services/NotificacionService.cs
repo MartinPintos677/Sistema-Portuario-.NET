@@ -119,7 +119,7 @@ public class NotificacionService(SistemaPortuarioDbContext context, ICurrentUser
 
             if (idEmpresa is null)
             {
-                throw new ArgumentException("La citacion indicada no existe.");
+                throw new ArgumentException("La citación indicada no existe.");
             }
 
             empresas.Add(idEmpresa.Value);
@@ -127,12 +127,12 @@ public class NotificacionService(SistemaPortuarioDbContext context, ICurrentUser
 
         if (empresas.Count == 0)
         {
-            throw new ArgumentException("La notificacion debe estar asociada a un usuario, orden o citacion.");
+            throw new ArgumentException("La notificación debe estar asociada a un usuario, orden o citación.");
         }
 
         if (empresas.Distinct().Count() > 1 || empresas.Any(idEmpresa => !currentUser.CanAccessEmpresa(idEmpresa)))
         {
-            throw new ArgumentException("La notificacion solo puede asociar datos de una empresa permitida.");
+            throw new ArgumentException("La notificación solo puede asociar datos de una empresa permitida.");
         }
     }
 }
