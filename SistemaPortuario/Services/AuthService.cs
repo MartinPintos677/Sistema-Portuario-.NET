@@ -1,7 +1,9 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -18,12 +20,24 @@ namespace SistemaPortuario.Services;
 /// Valida credenciales, emite JWT, administra refresh tokens y permite crear
 /// el primer administrador cuando la base esta vacia.
 /// </summary>
-public class AuthService(SistemaPortuarioDbContext context, IOptions<JwtOptions> jwtOptions) : IAuthService
+public class AuthService(
+    SistemaPortuarioDbContext context,
+    IOptions<JwtOptions> jwtOptions,
+    ILogger<AuthService> logger) : IAuthService
 {
     private readonly JwtOptions _jwtOptions = jwtOptions.Value;
     private const int RefreshTokenDays = 7;
+    private static readonly TimeSpan LoginDatabaseWakeupWindow = TimeSpan.FromSeconds(60);
+    private static readonly TimeSpan LoginDatabaseWakeupDelay = TimeSpan.FromSeconds(5);
 
     public async Task<LoginResponseDto?> LoginAsync(LoginRequestDto dto, CancellationToken cancellationToken = default)
+    {
+        return await ExecuteLoginWithDatabaseWakeupAsync(
+            () => LoginCoreAsync(dto, cancellationToken),
+            cancellationToken);
+    }
+
+    private async Task<LoginResponseDto?> LoginCoreAsync(LoginRequestDto dto, CancellationToken cancellationToken)
     {
         var usuario = await UsuariosConRelaciones()
             .FirstOrDefaultAsync(u => u.Correo == dto.Correo && u.Activo, cancellationToken);
@@ -175,6 +189,78 @@ public class AuthService(SistemaPortuarioDbContext context, IOptions<JwtOptions>
         context.Usuarios
             .Include(u => u.Empresa)
             .Include(u => u.Rol);
+
+    private async Task<T> ExecuteLoginWithDatabaseWakeupAsync<T>(
+        Func<Task<T>> operation,
+        CancellationToken cancellationToken)
+    {
+        var stopwatch = Stopwatch.StartNew();
+        var attempt = 0;
+
+        while (true)
+        {
+            try
+            {
+                return await operation();
+            }
+            catch (Exception ex) when (IsTransientDatabaseException(ex) && stopwatch.Elapsed < LoginDatabaseWakeupWindow)
+            {
+                attempt++;
+                var remaining = LoginDatabaseWakeupWindow - stopwatch.Elapsed;
+                var delay = remaining < LoginDatabaseWakeupDelay ? remaining : LoginDatabaseWakeupDelay;
+
+                if (delay <= TimeSpan.Zero)
+                {
+                    throw;
+                }
+
+                logger.LogWarning(
+                    ex,
+                    "La base de datos no respondió durante el login. Reintentando intento {Attempt} en {DelaySeconds} segundos.",
+                    attempt,
+                    delay.TotalSeconds);
+
+                await Task.Delay(delay, cancellationToken);
+            }
+        }
+    }
+
+    private static bool IsTransientDatabaseException(Exception exception)
+    {
+        for (var current = exception; current is not null; current = current.InnerException)
+        {
+            if (current is TimeoutException)
+            {
+                return true;
+            }
+
+            if (current is SqlException sqlException && sqlException.Errors.Cast<SqlError>().Any(IsTransientSqlError))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool IsTransientSqlError(SqlError error) =>
+        error.Number is
+            20 or
+            64 or
+            233 or
+            4060 or
+            4221 or
+            40143 or
+            40197 or
+            40501 or
+            40613 or
+            49918 or
+            49919 or
+            49920 or
+            10053 or
+            10054 or
+            10060 or
+            11001;
 
     private static string GenerateRefreshToken()
     {
