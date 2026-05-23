@@ -11,6 +11,17 @@ using SistemaPortuario.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 const string CorsPolicy = "SistemaPortuarioFrontend";
+string[] defaultCorsOrigins =
+[
+    "http://localhost:5173",
+    "https://localhost:5173",
+    "http://localhost:8080",
+    "https://localhost:8080",
+    "http://127.0.0.1:5173",
+    "https://127.0.0.1:5173",
+    "http://127.0.0.1:8080",
+    "https://127.0.0.1:8080"
+];
 
 // Configuracion base de logging para desarrollo y diagnóstico en despliegues.
 builder.Logging.ClearProviders();
@@ -83,17 +94,19 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(CorsPolicy, policy =>
     {
-        // Origenes locales usados por Vite durante desarrollo.
+        var configuredOrigins = builder.Configuration
+            .GetSection("Cors:AllowedOrigins")
+            .Get<string[]>() ?? [];
+
+        var allowedOrigins = defaultCorsOrigins
+            .Concat(configuredOrigins)
+            .Where(origin => !string.IsNullOrWhiteSpace(origin))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        // Orígenes locales y públicos autorizados para consumir la API.
         policy
-            .WithOrigins(
-                "http://localhost:5173",
-                "https://localhost:5173",
-                "http://localhost:8080",
-                "https://localhost:8080",
-                "http://127.0.0.1:5173",
-                "https://127.0.0.1:5173",
-                "http://127.0.0.1:8080",
-                "https://127.0.0.1:8080")
+            .WithOrigins(allowedOrigins)
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
