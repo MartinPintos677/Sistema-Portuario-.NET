@@ -245,6 +245,7 @@ public class AuthService(
 
     private static bool IsTransientSqlError(SqlError error) =>
         error.Number is
+            -2 or
             20 or
             64 or
             233 or
