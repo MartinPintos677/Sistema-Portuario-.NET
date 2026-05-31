@@ -3,7 +3,7 @@ name: Deploy backend to Azure App Service
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 permissions:
