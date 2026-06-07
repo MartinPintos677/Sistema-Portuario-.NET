@@ -133,10 +133,17 @@ public class SistemaPortuarioDbContext(
     private sealed class AuditEntry
     {
         private readonly EntityEntry _entry;
+        private readonly HashSet<string> _modifiedSensitiveProperties;
 
         private AuditEntry(EntityEntry entry, int idUsuario)
         {
             _entry = entry;
+            _modifiedSensitiveProperties = entry.State == EntityState.Modified
+                ? entry.Properties
+                    .Where(property => property.IsModified && SensitiveProperties.Contains(property.Metadata.Name))
+                    .Select(property => property.Metadata.Name)
+                    .ToHashSet(StringComparer.OrdinalIgnoreCase)
+                : [];
             IdUsuario = idUsuario;
             Accion = entry.State switch
             {
@@ -147,7 +154,7 @@ public class SistemaPortuarioDbContext(
             };
             Entidad = entry.Metadata.ClrType.Name;
             DatosPrevios = entry.State is EntityState.Modified or EntityState.Deleted
-                ? SerializeValues(entry, useOriginalValues: true)
+                ? SerializeValues(entry, useOriginalValues: true, _modifiedSensitiveProperties)
                 : null;
         }
 
@@ -170,7 +177,7 @@ public class SistemaPortuarioDbContext(
                 DatosPrevios = DatosPrevios,
                 DatosNuevos = _entry.State is EntityState.Deleted
                     ? null
-                    : SerializeValues(_entry, useOriginalValues: false)
+                    : SerializeValues(_entry, useOriginalValues: false, _modifiedSensitiveProperties)
             };
         }
 
@@ -188,7 +195,10 @@ public class SistemaPortuarioDbContext(
             return string.Join("|", values);
         }
 
-        private static string SerializeValues(EntityEntry entry, bool useOriginalValues)
+        private static string SerializeValues(
+            EntityEntry entry,
+            bool useOriginalValues,
+            HashSet<string> modifiedSensitiveProperties)
         {
             var values = new Dictionary<string, object?>();
 
@@ -198,7 +208,7 @@ public class SistemaPortuarioDbContext(
 
                 if (SensitiveProperties.Contains(propertyName))
                 {
-                    if (entry.State == EntityState.Modified && property.IsModified)
+                    if (modifiedSensitiveProperties.Contains(propertyName))
                     {
                         values["Password"] = useOriginalValues ? "Contraseña" : "Nueva contraseña";
                     }
