@@ -190,12 +190,29 @@ public class SistemaPortuarioDbContext(
 
         private static string SerializeValues(EntityEntry entry, bool useOriginalValues)
         {
-            var values = entry.Properties
-                .Where(property => !SensitiveProperties.Contains(property.Metadata.Name))
-                .Where(property => useOriginalValues || !property.Metadata.IsPrimaryKey() || !property.IsTemporary)
-                .ToDictionary(
-                    property => property.Metadata.Name,
-                    property => useOriginalValues ? property.OriginalValue : property.CurrentValue);
+            var values = new Dictionary<string, object?>();
+
+            foreach (var property in entry.Properties)
+            {
+                var propertyName = property.Metadata.Name;
+
+                if (SensitiveProperties.Contains(propertyName))
+                {
+                    if (entry.State == EntityState.Modified && property.IsModified)
+                    {
+                        values["Password"] = useOriginalValues ? "Contraseña" : "Nueva contraseña";
+                    }
+
+                    continue;
+                }
+
+                if (!useOriginalValues && property.Metadata.IsPrimaryKey() && property.IsTemporary)
+                {
+                    continue;
+                }
+
+                values[propertyName] = useOriginalValues ? property.OriginalValue : property.CurrentValue;
+            }
 
             return JsonSerializer.Serialize(values, AuditJsonOptions);
         }
