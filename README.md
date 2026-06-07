@@ -169,42 +169,6 @@ Cada push a `master` dispara el flujo de despliegue automático hacia Azure App 
 
 ---
 
-# Endpoint de warmup
-
-La API incluye:
-
-```text id="zx9e8z"
-GET /api/Health/warmup
-```
-
-para despertar la base Azure SQL del entorno demo antes del login público.
-
----
-
-# Instalación local
-
-```bash id="eqg1l9"
-dotnet restore
-dotnet build
-dotnet run
-```
-
-## Variables necesarias
-
-Configurar:
-
-```text id="p7o3z4"
-ConnectionStrings
-JWT Secret
-JWT Issuer
-JWT Audience
-CORS Origins
-```
-
-mediante User Secrets o variables de entorno.
-
----
-
 # Objetivo del proyecto
 
 El objetivo del proyecto es demostrar:
