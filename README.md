@@ -6,7 +6,7 @@ El proyecto fue construido como portfolio técnico profesional, simulando una ar
 
 ---
 
-# Link para probar el sistema
+# Demo
 
 https://sistema-portuario.martinpintos677.workers.dev/
 
